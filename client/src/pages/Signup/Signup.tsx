@@ -54,7 +54,7 @@ function Signup() {
             <GenderBox />
           </div>
           <div>
-            <button className="btn btn-block btn-sm mt-2 border border-slate-700">
+            <button className="btn btn-block btn-md mt-2 border border-slate-700">
               Sign Up
             </button>
           </div>

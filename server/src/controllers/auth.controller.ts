@@ -1,11 +1,15 @@
-import { RequestHandler } from "express";
+import { Request, RequestHandler, Response } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import tokenAndCookie from "../utils/Token";
 
-export const signup: RequestHandler = async (req, res) => {
+export async function signup(req: Request, res: Response) {
+  const { fullName, username, password, confirmPassword, gender } = req.body;
+  console.log(password);
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
+    if (password == "" || password == null) {
+      return res.json({ message: "password is required!" });
+    }
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords don't match" });
     }
@@ -20,7 +24,7 @@ export const signup: RequestHandler = async (req, res) => {
     const boyProfile = `https://avatar.iran.liara.run/public/boy?username=${username}`;
     const girlProfile = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
-    const newUser = new User({
+    const newUser = await new User({
       fullName,
       username,
       password: hashedPassword,
@@ -37,7 +41,7 @@ export const signup: RequestHandler = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "There was a problem signing up" });
   }
-};
+}
 
 export const login: RequestHandler = async (req, res) => {
   try {

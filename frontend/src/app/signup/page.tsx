@@ -1,6 +1,7 @@
+"use client";
+import useSignup from "@/hooks/useSignup";
 import { useState } from "react";
 import GenderBox from "./GenderBox";
-import useSignup from "../../hooks/useSignup";
 
 function Signup() {
   const [inputs, setInputs] = useState({
@@ -15,6 +16,7 @@ function Signup() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(inputs.password);
     await signup(inputs);
   };
 
@@ -97,7 +99,11 @@ function Signup() {
               onClick={handleSubmit}
               className="btn btn-block btn-md mt-2 border border-slate-700"
             >
-              Sign Up
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
           <p className="my-3 font-medium">

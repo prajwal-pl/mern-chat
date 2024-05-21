@@ -5,7 +5,6 @@ import tokenAndCookie from "../utils/Token";
 
 export async function signup(req: Request, res: Response) {
   const { fullName, username, password, confirmPassword, gender } = req.body;
-  console.log(password);
   try {
     if (password == "" || password == null) {
       return res.json({ message: "password is required!" });

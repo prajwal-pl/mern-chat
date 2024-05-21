@@ -2,8 +2,18 @@
 import useSignup from "@/hooks/useSignup";
 import { useState } from "react";
 import GenderBox from "./GenderBox";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/context/AuthContext";
 
 function Signup() {
+  const router = useRouter();
+  //@ts-ignore
+  const { authUser } = useAuthContext();
+
+  if (authUser) {
+    router.push("/");
+  }
+
   const [inputs, setInputs] = useState({
     fullName: "",
     username: "",
@@ -16,8 +26,20 @@ function Signup() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(inputs.password);
-    await signup(inputs);
+    // console.log(inputs.password);
+    try {
+      await signup(inputs);
+      setInputs({
+        fullName: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        gender: "",
+      });
+      router.push("/");
+    } catch (error) {
+      console.log("Error signing up!", error);
+    }
   };
 
   const handleCheckboxChange = (gender: any) => {

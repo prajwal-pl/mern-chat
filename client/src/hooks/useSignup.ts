@@ -36,19 +36,22 @@ const useSignup = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          body: JSON.stringify({
-            fullName,
-            username,
-            password,
-            confirmPassword,
-            gender,
-          }),
         },
+        body: JSON.stringify({
+          fullName,
+          username,
+          password,
+          confirmPassword,
+          gender,
+        }),
       });
 
       const data = await res.json();
-      localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
+
+      if (res.ok) {
+        toast.success(`Welcome ${fullName}!`);
+      }
     } catch (error) {
       toast.error(error as string);
       console.log(error);

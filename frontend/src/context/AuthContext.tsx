@@ -6,7 +6,6 @@ import {
   useEffect,
   useState,
 } from "react";
-
 //@ts-ignore
 export const AuthContext = createContext();
 
@@ -20,6 +19,7 @@ type Props = {
 
 export const AuthContextProvider = ({ children }: Props) => {
   const [authUser, setAuthUser] = useState("");
+
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser }}>
       {children}

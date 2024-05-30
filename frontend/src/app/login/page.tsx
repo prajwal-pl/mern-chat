@@ -11,10 +11,6 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  if (authUser) {
-    router.push("/");
-  }
-
   const { loading, login } = useLogin();
 
   const handleSubmit = async (e: any) => {

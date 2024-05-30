@@ -43,8 +43,8 @@ export async function signup(req: Request, res: Response) {
 }
 
 export const login: RequestHandler = async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
     const user = await User.findOne({ username });
     const correctPassword = await bcrypt.compare(
       password,
